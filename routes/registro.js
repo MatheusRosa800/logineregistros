@@ -1,4 +1,7 @@
 module.exports = (app)=>{
+    //importar o bcrypt
+    var bcrypt = require('bcrypt')
+
     app.get('/registro',(req,res)=>{
         res.render('registro.ejs')
     })
@@ -12,10 +15,11 @@ app.post('/registro', async(req,res)=>{
     if(userexiste){
         return res.send('email ja cadastrado')
     }else{
+        var senhasegura = await bcrypt.hash(req.body.senha,12)
         var documentos = new usuarios({
-            Nome:req.body.nome,
+            nome:req.body.nome,
             email:req.body.email,
-            senha:req.body.senha
+            senha:senhasegura
 
         }).save()
         res.render('login.ejs')
