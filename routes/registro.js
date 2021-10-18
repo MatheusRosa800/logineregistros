@@ -20,7 +20,7 @@ module.exports =(app)=>{
                 email:req.body.email,
                 senha:senhasegura
           }).save()
-          res.render('login.ejs')  
+          res.redirect('/login')  
         }
     })
 }
