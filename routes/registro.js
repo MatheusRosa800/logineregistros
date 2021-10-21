@@ -9,7 +9,7 @@ module.exports = (app)=>{
     app.post('/registro', async(req, res)=>{
         var conexao = require('../config/database')()
         var usuarios = require('../models/usuarios')
- 
+
         var userexiste = await usuarios.findOne({email:req.body.email})
         if(userexiste){
             return res.render('registro.ejs',{mensagem:'Email já cadastrado'})
