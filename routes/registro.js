@@ -12,7 +12,8 @@ module.exports = (app)=>{
 
         var userexiste = await usuarios.findOne({email:req.body.email})
         if(userexiste){
-            return res.render('registro.ejs',{mensagem:'Email já cadastrado'})
+            //return res.render('registro.ejs',{mensagem:'Email já cadastrado'})
+             return res.send('email ja cadastrado')
         }else{
           var senhasegura = await bcrypt.hash(req.body.senha,12)
           var documento = new usuarios({
