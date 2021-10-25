@@ -2,6 +2,7 @@ module.exports = (app)=>{
     
     var conexao = require("../config/database.js")()
     var usuarios = require("../models/usuarios")
+    var atividades = require("../models/atividades")
     
     app.get('/dashboard',async(req,res)=>{
         var id = req.query.id
@@ -18,4 +19,21 @@ module.exports = (app)=>{
         }
      })
 
+     app.post('/dashboard',async(req,res)=>{
+        var dados = req.body
+
+        var novo = await new atividades ({
+        data: dados.data,
+        tipo: dados.tipo,
+        entrega: dados.entrega,
+        disciplina: dados.disciplina,
+        instrucoes: dados.instrucoe,
+        user: dados.redirect
+    
+     }).save()
+     .then((result)=>{
+         res.redirect('/dashboard?id=' +dados.id)
+     })
+
+    })
 }
